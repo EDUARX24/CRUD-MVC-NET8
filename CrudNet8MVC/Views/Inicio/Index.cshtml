@@ -1,0 +1,88 @@
+﻿@* acceder a la lista con los items de mi modelo *@
+@model IEnumerable<CrudNet8MVC.Models.Contacto>
+
+@{
+    ViewData["Title"] = "Lista de contactos";
+}
+
+<h1 class="text-center">Lista de Contactos - Net core 8</h1>
+<div class="row">
+    <div class="offset-9 col-3 mb-3">
+        <a asp-action="Crear" asp-controller="Inicio" class="btn btn-secondary d-block mx-auto btn-lg">
+            <i class="fa-solid fa-plus"></i>
+            Nuevo usuario
+        </a>
+    </div>
+</div>
+
+@* tabla de bootstrap *@
+<div class="row">
+    <div class="offset-12">
+        <div class="card border">
+            <div class="card-header bg-dark">
+                <h3 class="text-white">
+                    <strong>
+                        Lista de Usuarios
+                    </strong>
+                </h3>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    @* validar los registros *@
+                    @if (Model.Count() > 0)
+                    {
+                        <table class="table table-bordered" id="tblUsuarios" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>@Html.DisplayNameFor(m => m.Id)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Nombre)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Telefono)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Celular)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Email)</th>
+                                    <th>@Html.DisplayNameFor(m => m.FechaCreacion)</th>
+                                    <th>
+                                        Acciones
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Id</td>
+                                        <td>@item.Nombre</td>
+                                        <td>@item.Telefono</td>
+                                        <td>@item.Celular</td>
+                                        <td>@item.Email</td>
+                                        <td>@item.FechaCreacion</td>
+                                        <td>
+                                            <a asp-action="Editar" asp-route-id="@item.Id" class="btn btn-primary">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                                Editar
+                                            </a>
+                                            <a asp-action="Detalle" asp-route-id="@item.Id" class="btn btn-warning">
+                                                <i class="fa-solid fa-circle-info"></i>
+                                                Detalles
+                                            </a>
+                                            <a asp-action="Borrar" asp-route-id="@item.Id" class="btn btn-danger">
+                                                <i class="fa-solid fa-eraser"></i>
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning">
+                            <strong>No hay registros</strong>
+                        </div>
+                    }
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
